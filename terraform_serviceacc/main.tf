@@ -33,6 +33,15 @@ resource "google_compute_subnetwork" "custom_vpc_subnet_sngpr" {
         region = "asia-southeast1"
 }
 
+resource "google_compute_firewall" "allow-icmp"{
+    name = "allow-icmp"
+    network = google_compute_network.custom_vpc_net.id
+    allow{
+        protocol = "icmp"
+    }
+    source_ranges =  ["157.46.133.123/32"]
+}
+
 output "customvpc"{
     value = google_compute_network.custom_vpc_net.id
 }
